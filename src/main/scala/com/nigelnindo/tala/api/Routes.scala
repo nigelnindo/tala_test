@@ -2,7 +2,6 @@ package com.nigelnindo.tala.api
 
 import akka.actor.ActorSystem
 import akka.stream.Materializer
-
 import akka.http.scaladsl.server.Directives._
 
 import scala.concurrent.ExecutionContextExecutor

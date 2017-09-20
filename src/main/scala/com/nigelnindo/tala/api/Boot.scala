@@ -19,7 +19,10 @@ object Boot extends App with Routes {
   override implicit val materializer: ActorMaterializer = ActorMaterializer()
   override implicit val executor: ExecutionContextExecutor = system.dispatcher
 
-  // use "production" settings for database
+  /**
+    * Use "production" settings for database.
+    * Must be defined as lazy val or with you'll end up wit a null pointer exception.
+    */
   lazy val db = Database.forConfig("productionDb")
 
   Http().bindAndHandle(routes, Config.server.getString("interface"), Config.server.getInt("port"))
