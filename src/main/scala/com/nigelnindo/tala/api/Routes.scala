@@ -3,6 +3,10 @@ package com.nigelnindo.tala.api
 import akka.actor.ActorSystem
 import akka.stream.Materializer
 import akka.http.scaladsl.server.Directives._
+import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport._
+
+import com.nigelnindo.tala.api.model.Protocols._
+import com.nigelnindo.tala.api.model.TransactionRequest
 
 import scala.concurrent.ExecutionContextExecutor
 
@@ -18,17 +22,17 @@ trait Routes extends Controller {
   val routes = {
     pathPrefix("balance"){
       get {
-        complete("You have reached the balance endpoint")
+        getBalance()
       }
     } ~
     pathPrefix("deposit"){
-      post {
-        complete("You have reached the deposit endpoint")
+      (post & entity(as[TransactionRequest])) { transactionRequest: TransactionRequest =>
+        processDeposit(transactionRequest.amount)
       }
     } ~
     pathPrefix("withdraw"){
-      post {
-        complete("You have reached the withdraw endpoint")
+      (post & entity(as[TransactionRequest])) { transactionRequest: TransactionRequest =>
+        processWithdrawal(transactionRequest.amount)
       }
     }
   }
