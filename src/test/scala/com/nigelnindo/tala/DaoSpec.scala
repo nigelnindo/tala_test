@@ -20,7 +20,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
   */
 class DaoSpec extends FlatSpec with Matchers with BeforeAndAfterAll{
 
- implicit lazy val db = Database.forConfig("testDb")
+ implicit lazy val db = Database.forConfig("testDbDao")
 
  val transactionsDAO = new TransactionsDAO
 
@@ -49,11 +49,11 @@ class DaoSpec extends FlatSpec with Matchers with BeforeAndAfterAll{
   println("Inserting initial test data")
 
   val previousDayTransaction1 = transactionsDAO.insert(Transaction("ref1", TransactionTypes.DEPOSIT,
-   DateUtils.dateTimeToTimestamp(DateTime.yesterday + 2.hours), 3000))
+   DateUtils.dateTimeToTimestamp(DateTime.yesterday), 3000))
   val previousDayTransaction2 = transactionsDAO.insert(Transaction("ref2", TransactionTypes.DEPOSIT,
-   DateUtils.dateTimeToTimestamp(DateTime.yesterday + 2.hours), 2000))
+   DateUtils.dateTimeToTimestamp(DateTime.yesterday), 2000))
   val previousDayTransaction3 = transactionsDAO.insert(Transaction("ref3", TransactionTypes.WITHDRAWAL,
-   DateUtils.dateTimeToTimestamp(DateTime.yesterday + 2.hours), 1000))
+   DateUtils.dateTimeToTimestamp(DateTime.yesterday), 1000))
 
   val parallelFutures = for {
    t1 <- previousDayTransaction1
@@ -85,6 +85,7 @@ class DaoSpec extends FlatSpec with Matchers with BeforeAndAfterAll{
 
   // We created 3 transaction for the previous day
   val blockingFutureResult = Await.result(yesterdaysTransactions, scala.concurrent.duration.Duration(2,"s"))
+  println(blockingFutureResult)
   assert(blockingFutureResult.size == 3)
 
   val transactionsToday = transactionsDAO.getTransactionsByDate(DateTime.now)

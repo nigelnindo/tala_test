@@ -6,7 +6,7 @@ import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport._
 
 import com.nigelnindo.tala.api.model.Protocols._
 import com.nigelnindo.tala.api.Routes
-import com.nigelnindo.tala.api.model.{TransactionRequest, ErrorResponse, BalanceResponse}
+import com.nigelnindo.tala.api.model.{ErrorsResponse, TransactionRequest, ErrorResponse, BalanceResponse}
 import com.nigelnindo.tala.db.AccountTable
 
 import org.scalatest.{BeforeAndAfterAll, Matchers, FlatSpec}
@@ -21,7 +21,7 @@ import slick.lifted.TableQuery
 class ApiSpec extends FlatSpec with Matchers
   with ScalatestRouteTest with Routes with BeforeAndAfterAll {
 
-  implicit lazy val db = Database.forConfig("testDb")
+  implicit lazy val db = Database.forConfig("testDbApi")
 
   override def beforeAll: Unit = {
     /**
@@ -53,7 +53,7 @@ class ApiSpec extends FlatSpec with Matchers
   it should "not allow any withdrawals before processing any transaction[deposits]" in {
     Post("/withdraw", TransactionRequest(3000)) ~> routes ~> check {
       status should be (BadRequest)
-      responseAs[ErrorResponse] should be (ErrorResponse("You don't have enough balance left available to to withdraw 3000.0. Current balance is 0.0."))
+      responseAs[ErrorsResponse] should be (ErrorsResponse(List(ErrorResponse("You have insufficient funds to process withdrawal."))))
     }
   }
 
