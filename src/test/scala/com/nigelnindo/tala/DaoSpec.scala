@@ -13,7 +13,6 @@ import com.github.nscala_time.time.Imports._
 
 import scala.concurrent.Await
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.duration.DurationLong
 
 
 /**

@@ -93,7 +93,7 @@ class TransactionsDAO(implicit val db: JdbcBackend.Database) extends DAO {
     * This function takes a range of timestamps and returns all the transactions that
     * have occurred between them.
     */
-
+  /*
   def getTransactionsByRange(start: Timestamp, end: Timestamp): Future[Seq[Transaction]] = {
     val transactionsWithinRange = for {
       t <- transactions
@@ -102,5 +102,6 @@ class TransactionsDAO(implicit val db: JdbcBackend.Database) extends DAO {
 
     db.run(orderTransactions(transactionsWithinRange).result)
   }
+  */
 
 }

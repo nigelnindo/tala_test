@@ -29,9 +29,11 @@ object Protocols extends DefaultJsonProtocol {
   implicit val transactionResponseFormat = jsonFormat4(Transaction)
   implicit val balanceResponseFormat = jsonFormat1(BalanceResponse)
   implicit val errorResponseFormat = jsonFormat1(ErrorResponse)
+  implicit val errorsResponseFormat = jsonFormat1(ErrorsResponse)
 
 }
 
 case class TransactionRequest(amount: Double)
 case class BalanceResponse(balance: Double)
 case class ErrorResponse(errorMessage: String)
+case class ErrorsResponse(errors: List[ErrorResponse])
