@@ -9,7 +9,7 @@ import com.github.nscala_time.time.Imports._
   */
 object DateUtils {
 
-  def isToday(dateTime: DateTime) = LocalDate.now().compareTo(new LocalDate(dateTime)) == 0
+  //def isToday(dateTime: DateTime) = LocalDate.now().compareTo(new LocalDate(dateTime)) == 0
 
   def dateTimeToTimestamp(dateTime: DateTime): Timestamp = new Timestamp(dateTime.getMillis)
 

@@ -9,7 +9,7 @@ object Constants {
 
   object TransactionTypes {
     val DEPOSIT: TransactionType = "deposit"
-    val WITHDRAWAL: TransactionType = "withdrawal"
+    val WITHDRAWAL: TransactionType = "withdraw"
   }
 
 }
