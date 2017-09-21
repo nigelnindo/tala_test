@@ -33,7 +33,7 @@ object Protocols extends DefaultJsonProtocol {
 
 }
 
-case class TransactionRequest(amount: Double)
-case class BalanceResponse(balance: Double)
-case class ErrorResponse(errorMessage: String)
-case class ErrorsResponse(errors: List[ErrorResponse])
+
+
+
+

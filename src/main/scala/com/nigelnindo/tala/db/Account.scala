@@ -70,7 +70,7 @@ class TransactionsDAO(implicit val db: JdbcBackend.Database) extends DAO {
     transactions.sortBy(_.timestamp.asc)
   }
 
-  // Get all transaction and replay them. This is how we compute the current balance.
+  // Get all transactions and replay them. This is how we compute the current balance.
   def getAllTransactions = db.run(orderTransactions(transactions).result)
 
   /**
